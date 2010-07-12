@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.email       = ["jason.dew@gmail.com"]
   s.homepage    = "http://github.com/jasondew/coded_options"
   s.summary     = "Making options easier"
-  s.description = "A gem for Rails to clean up my normal flow for dealing with coded fields"
+  s.description = "A gem for making fields with coded values easier"
 
   s.required_rubygems_version = ">= 1.3.6"
 
