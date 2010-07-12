@@ -1,0 +1,4 @@
+.bundle
+*.swp
+.DS_Store
+.gem
