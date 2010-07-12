@@ -3,7 +3,7 @@ module CodedOptions
   end
 
   def self.extended base
-    base.include Constants
+    base.send(:include, Constants)
   end
 
   def coded_options singular_name, values
