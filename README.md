@@ -2,7 +2,7 @@ CodedOptions
 ============
 
 Just a way to clean up my normal way to deal with coded options.  Basically,
-it turns
+in a Rails controller, it turns
 
     coded_options :state, %w(initial active closed)
 
@@ -15,5 +15,17 @@ into
       return unless state_id
       STATES[state_id]
     end
+
+The STATE_OPTIONS array is perfect for select tags.  You can also use this in
+a plain Ruby object as follows:
+
+    class Foo
+      attr_accessor :state_id, :type_id
+      coded_options :state => %w(active closed), :type => %w(stupid awesome)
+    end
+
+    foo = Foo.new
+    foo.type_id = 1
+    foo.type          #=> awesome
 
 Enjoy!
