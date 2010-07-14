@@ -19,7 +19,10 @@ into
 The STATE_OPTIONS array is perfect for select tags.  You can also use this in
 a plain Ruby object as follows:
 
+    require "coded_options"
+
     class Foo
+      extend CodedOptions
       attr_accessor :state_id, :type_id
       coded_options :state => %w(active closed), :type => %w(stupid awesome)
     end
