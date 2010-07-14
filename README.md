@@ -1,6 +1,9 @@
 CodedOptions
 ============
 
+Usage
+-----
+
 Just a way to clean up my normal way to deal with coded options.  Basically,
 in a Rails controller, it turns
 
@@ -30,5 +33,16 @@ a plain Ruby object as follows:
     foo = Foo.new
     foo.type_id = 1
     foo.type          #=> awesome
+
+Installation
+------------
+
+To install into a Rails 3 app just add this to your `Gemfile`:
+
+    gem "coded_options"
+
+and for Rails 2 apps you will want to install it as a plugin:
+
+    ./script/plugin install git://github.com/jasondew/coded_options.git
 
 Enjoy!
