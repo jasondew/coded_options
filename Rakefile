@@ -1,7 +1,9 @@
 require "bundler"
 Bundler.setup
 
+require "rspec"
 require "rspec/core/rake_task"
+
 Rspec::Core::RakeTask.new(:spec)
 
 gemspec = eval(File.read("coded_options.gemspec"))
