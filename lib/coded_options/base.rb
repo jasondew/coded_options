@@ -17,10 +17,10 @@ module CodedOptions
     const_set "#{singular_name}_options".upcase, to_options(values)
 
     class_eval <<-EOT, __FILE__, (__LINE__+1)
-      def #{singular_name}                          # def state
-        return unless #{singular_name}_id           #   return unless state_id
-        #{plural_name.upcase}[#{singular_name}_id]  #   STATES[state_id]
-      end                                           # end
+      def #{singular_name}                               # def state
+        return unless #{singular_name}_id                #   return unless state_id
+        #{plural_name.upcase}[#{singular_name}_id.to_i]  #   STATES[state_id.to_i]
+      end                                                # end
     EOT
   end
 
