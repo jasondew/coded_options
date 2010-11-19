@@ -13,7 +13,7 @@ into
 
     STATES = %w(initial active closed)
     STATE_OPTIONS = [["initial", 0], ["active", 1], ["closed", 2]]
-    
+
     def state
       return unless state_id
       STATES[state_id]
@@ -33,6 +33,12 @@ a plain Ruby object as follows:
     foo = Foo.new
     foo.type_id = 1
     foo.type          #=> awesome
+
+If you want to use this with MongoDB, just add
+
+    extend CodedOptions
+
+to your model.
 
 Installation
 ------------
