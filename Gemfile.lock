@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    coded_options (0.1.4)
+    coded_options (0.1.6)
 
 GEM
   remote: http://rubygems.org/
@@ -90,6 +90,3 @@ DEPENDENCIES
   rake
   rr
   rspec (~> 2.0.0)
-
-METADATA
-  version: 1.0.6
