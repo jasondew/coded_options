@@ -57,4 +57,35 @@ describe CodedOptions do
 
   end
 
+  describe "given a single field with a hash for the values" do
+
+    before(:all) do
+      class Foo
+        extend CodedOptions
+        coded_options :gender, {99 => 'other', 1 => 'male', 2 => 'female'}
+      end
+
+      @foo = Foo.new
+    end
+
+    it "should set a constant containing all the values" do
+      Foo::GENDERS.should == {99 => 'other', 1 => 'male', 2 => 'female'}
+    end
+
+    it "should set a constant containing the ids and values suitable for consumption by select_tag" do
+      Foo::GENDER_OPTIONS.should == [["male", 1], ["female", 2], ["other", 99]]
+    end
+
+    it "should define a method for accessing the value based on [name]_id" do
+      mock(@foo).gender_id.twice { 1 }
+      @foo.gender.should == "male"
+    end
+
+    it "should define a method for accessing the value that returns nil if the id is nil" do
+      mock(@foo).gender_id { nil }
+      @foo.gender.should be_nil
+    end
+
+  end
+
 end
