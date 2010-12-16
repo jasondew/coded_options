@@ -25,7 +25,11 @@ module CodedOptions
   end
 
   def to_options values
-    values.zip((0..values.length).to_a)
+    if values.is_a? Hash
+      values.sort{|a,b| a.first <=> b.first}.map{|a| a.reverse}
+    else
+      values.zip((0..values.length).to_a)
+    end
   end
 
 end

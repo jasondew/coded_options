@@ -34,6 +34,15 @@ a plain Ruby object as follows:
     foo.type_id = 1
     foo.type          #=> awesome
 
+If the values are important to your application you can pass
+a hash instead of an array like so:
+
+    coded_options :gender, {99 => 'other', 1 => 'male', 2 => 'female'}
+
+GENDER will return a hash (the exact hash above), not an array.  GENDER_OPTIONS
+will return an array suitable for select tags.  The array will be ordered
+numerically by the keys of the hash.
+
 If you want to use this with MongoDB, just add
 
     extend CodedOptions
