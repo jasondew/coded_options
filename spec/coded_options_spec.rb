@@ -3,6 +3,21 @@ require "active_support/inflector"
 
 describe CodedOptions do
 
+  describe "allow setting the *_id field via the value" do
+    it "should perform a lookup and set the proper id" do
+      class Foo
+        extend CodedOptions
+        attr_accessor :state_id
+        coded_options :state, %w(initial active closed)
+      end
+
+      @foo = Foo.new
+      @foo.state = "initial"
+      @foo.state_id.should == 0
+      @foo.state.should == "initial"
+    end
+  end
+
   describe "given a single field" do
 
     before(:all) do
