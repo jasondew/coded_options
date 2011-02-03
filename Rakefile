@@ -6,7 +6,7 @@ require "rspec/core/rake_task"
 
 Rspec::Core::RakeTask.new(:spec)
 
-gemspec = eval(File.read("coded_options.gemspec"))
+gemspec = eval(File.read(File.join(Dir.pwd, "coded_options.gemspec")))
 
 task :build => "#{gemspec.full_name}.gem"
 
