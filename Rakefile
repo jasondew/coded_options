@@ -10,6 +10,8 @@ gemspec = eval(File.read("coded_options.gemspec"))
 
 task :build => "#{gemspec.full_name}.gem"
 
+task :test => :spec
+
 file "#{gemspec.full_name}.gem" => gemspec.files + ["coded_options.gemspec"] do
   system "gem build coded_options.gemspec"
   system "gem install coded_options-#{CodedOptions::VERSION}.gem"
