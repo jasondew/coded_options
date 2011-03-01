@@ -3,10 +3,26 @@ require "active_support/inflector"
 
 describe CodedOptions do
 
+  describe "changing initial value" do
+    it "should use the initial value given" do
+      CodedOptions.initial_value = 1
+      CodedOptions.initial_value.should == 1
+
+      class Foo
+        include CodedOptions
+        attr_accessor :state_id
+        coded_options :state, %w(initial active closed)
+      end
+
+      Foo::STATE_OPTIONS.should == [["initial", 1], ["active", 2], ["closed", 3]]
+      CodedOptions.initial_value = 0
+    end
+  end
+
   describe "allow setting the *_id field via the value" do
     it "should perform a lookup and set the proper id" do
       class Foo
-        extend CodedOptions
+        include CodedOptions
         attr_accessor :state_id
         coded_options :state, %w(initial active closed)
       end
@@ -22,7 +38,7 @@ describe CodedOptions do
 
     before(:all) do
       class Foo
-        extend CodedOptions
+        include CodedOptions
         coded_options :state, %w(initial active closed)
       end
 
@@ -55,7 +71,7 @@ describe CodedOptions do
       class Bar
         attr_accessor :state_id, :foo_id
 
-        extend CodedOptions
+        include CodedOptions
         coded_options :state => %w(initial active closed),
                       :foo   => %w(bar quux baz)
       end
@@ -76,7 +92,7 @@ describe CodedOptions do
 
     before(:all) do
       class Foo
-        extend CodedOptions
+        include CodedOptions
         coded_options :gender, {99 => 'other', 1 => 'male', 2 => 'female'}
       end
 

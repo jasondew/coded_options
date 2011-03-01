@@ -25,7 +25,7 @@ a plain Ruby object as follows:
     require "coded_options"
 
     class Foo
-      extend CodedOptions
+      include CodedOptions
       attr_accessor :state_id, :type_id
       coded_options :state => %w(active closed), :type => %w(stupid awesome)
     end
@@ -45,7 +45,7 @@ numerically by the keys of the hash.
 
 If you want to use this with MongoDB, just add
 
-    extend CodedOptions
+    include CodedOptions
 
 to your model.
 
