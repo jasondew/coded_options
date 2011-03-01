@@ -3,6 +3,30 @@ require "active_support/inflector"
 
 describe CodedOptions do
 
+  describe "given a hash" do
+
+    before(:all) do
+      class Bar
+        attr_accessor :state_id, :foo_id
+
+        include CodedOptions
+        coded_options :state => %w(initial active closed),
+                      :foo   => %w(bar quux baz)
+      end
+
+      @bar = Bar.new
+      @bar.state_id = 0
+      @bar.foo_id = 1
+    end
+
+    it "should call setup_coded_options for each field" do
+      @bar.state.should == "initial"
+      @bar.foo.should == "quux"
+      Bar::STATE_OPTIONS = [["initial", 0], ["active", 1], ["closed", 2]]
+    end
+
+  end
+
   describe "changing initial value" do
     it "should use the initial value given when set manually" do
       CodedOptions.initial_value = 1
@@ -74,29 +98,6 @@ describe CodedOptions do
     it "should define a method for accessing the value that returns nil if the id is nil" do
       mock(@foo).state_id { nil }
       @foo.state.should be_nil
-    end
-
-  end
-
-  describe "given a hash" do
-
-    before(:all) do
-      class Bar
-        attr_accessor :state_id, :foo_id
-
-        include CodedOptions
-        coded_options :state => %w(initial active closed),
-                      :foo   => %w(bar quux baz)
-      end
-
-      @bar = Bar.new
-      @bar.state_id = 0
-      @bar.foo_id = 1
-    end
-
-    it "should call setup_coded_options for each field" do
-      @bar.state.should == "initial"
-      @bar.foo.should == "quux"
     end
 
   end

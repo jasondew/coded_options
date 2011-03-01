@@ -4,9 +4,10 @@ module CodedOptions
     base.send :extend, ClassMethods
   end
 
+  @initial_value = 0
+
   module PrivateClassMethods
     attr_accessor :initial_value
-    @initial_value = 0
   end
   extend PrivateClassMethods
 
