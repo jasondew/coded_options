@@ -43,6 +43,17 @@ GENDER will return a hash (the exact hash above), not an array.  GENDER_OPTIONS
 will return an array suitable for select tags.  The array will be ordered
 numerically by the keys of the hash.
 
+The initial value used defaults to 0 but can be changed via the following two methods:
+
+    coded_options :state => %w(active closed),
+                  :initial_value => 42
+
+    CodedOptions.initial_value = 42
+    coded_options :state => %w(active closed)
+
+Obviously the first method only affects that statement whereas the second method
+is global.
+
 If you want to use this with MongoDB, just add
 
     include CodedOptions
