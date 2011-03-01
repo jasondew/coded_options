@@ -4,7 +4,7 @@ require "active_support/inflector"
 describe CodedOptions do
 
   describe "changing initial value" do
-    it "should use the initial value given" do
+    it "should use the initial value given when set manually" do
       CodedOptions.initial_value = 1
       CodedOptions.initial_value.should == 1
 
@@ -16,6 +16,19 @@ describe CodedOptions do
 
       Foo::STATE_OPTIONS.should == [["initial", 1], ["active", 2], ["closed", 3]]
       CodedOptions.initial_value = 0
+    end
+
+    it "should use the initial value given when set via the hash" do
+      class Foo
+        include CodedOptions
+        attr_accessor :state_id
+        coded_options :state         => %w(initial active closed),
+                      :initial_value => 42
+        coded_options :bar => %w(quux rand)
+      end
+
+      Foo::STATE_OPTIONS.should == [["initial", 42], ["active", 43], ["closed", 44]]
+      Foo::BAR_OPTIONS.should == [["quux", 0], ["rand", 1]]
     end
   end
 

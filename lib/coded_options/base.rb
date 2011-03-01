@@ -13,7 +13,18 @@ module CodedOptions
   module ClassMethods
     def coded_options *args
       case args.length
-        when 1 then args.first.each {|name, values| setup_coded_options name, values }
+        when 1 then
+          hash = args.first
+          if (new_initial_value = hash.delete(:initial_value))
+            old_initial_value = CodedOptions.initial_value
+            CodedOptions.initial_value = new_initial_value
+
+            hash.each {|name, values| setup_coded_options name, values }
+
+            CodedOptions.initial_value = old_initial_value
+          else
+            hash.each {|name, values| setup_coded_options name, values }
+          end
         when 2 then setup_coded_options *args
         else raise("Error in coded_options syntax, expecting name and values or a hash, got #{args.inspect}")
       end
@@ -43,7 +54,8 @@ module CodedOptions
       if values.is_a? Hash
         values.sort{|a,b| a.first <=> b.first}.map{|a| a.reverse}
       else
-        values.zip((CodedOptions.initial_value..values.length).to_a)
+        ids = (CodedOptions.initial_value..(CodedOptions.initial_value + values.length)).to_a
+        values.zip(ids)
       end
     end
   end
