@@ -1,4 +1,6 @@
-require File.expand_path("../lib/coded_options/version", __FILE__)
+# -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
+require "coded_options/version"
 
 Gem::Specification.new do |s|
   s.name        = "coded_options"
@@ -10,23 +12,13 @@ Gem::Specification.new do |s|
   s.summary     = "Making options easier"
   s.description = "A gem for making fields with coded values easier"
 
-  s.required_rubygems_version = ">= 1.3.6"
+  s.rubyforge_project = "coded_options"
 
-  # lol - required for validation
-  s.rubyforge_project         = "coded_options"
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
 
-  # If you have other dependencies, add them here
-  # s.add_dependency "another", "~> 1.2"
-
-  # If you need to check in files that aren't .rb files, add them here
-  s.files        = Dir["{lib}/**/*.rb", "spec/*.rb", "LICENSE", "*.md", "Gemfile", "Rakefile", ".gemtest", "coded_options.gemspec"]
-  s.require_path = 'lib'
-
-  # If you need an executable, add it here
-  # s.executables = ["coded_options"]
-
-  # If you have C extensions, uncomment this line
-  # s.extensions = "ext/extconf.rb"
-
-  s.add_bundler_dependencies
+  s.add_development_dependency "rspec", "~>2.0.0"
+  s.add_development_dependency "rr"
 end
