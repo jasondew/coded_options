@@ -11,13 +11,10 @@ in a Rails controller, it turns
 
 into
 
-    STATES = %w(initial active closed)
+    STATES = {0 => initial, 1 => active, 2 => closed)
     STATE_OPTIONS = [["initial", 0], ["active", 1], ["closed", 2]]
 
-    def state
-      return unless state_id
-      STATES[state_id]
-    end
+along with the getter and setter methods #state and #state=(new_state) respectively.
 
 The STATE_OPTIONS array is perfect for select tags.  You can also use this in
 a plain Ruby object as follows:

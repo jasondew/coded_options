@@ -39,6 +39,15 @@ describe CodedOptions do
       end
 
       Foo::STATE_OPTIONS.should == [["initial", 1], ["active", 2], ["closed", 3]]
+
+      @foo = Foo.new
+      @foo.state = "active"
+      @foo.state_id.should == 2
+
+      @foo = Foo.new
+      @foo.state_id = 3
+      @foo.state.should == "closed"
+
       CodedOptions.initial_value = 0
     end
 
@@ -53,6 +62,14 @@ describe CodedOptions do
 
       Foo::STATE_OPTIONS.should == [["initial", 42], ["active", 43], ["closed", 44]]
       Foo::BAR_OPTIONS.should == [["quux", 0], ["rand", 1]]
+
+      @foo = Foo.new
+      @foo.state = "active"
+      @foo.state_id.should == 43
+
+      @foo = Foo.new
+      @foo.state_id = 44
+      @foo.state.should == "closed"
     end
   end
 
@@ -83,7 +100,7 @@ describe CodedOptions do
     end
 
     it "should set a constant containing all the values" do
-      Foo::STATES.should == %w(initial active closed)
+      Foo::STATES.values.should == %w(initial active closed)
     end
 
     it "should set a constant containing the ids and values suitable for consumption by select_tag" do
